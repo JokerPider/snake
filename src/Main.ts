@@ -16,6 +16,8 @@ class Main extends egret.DisplayObjectContainer {
     private stageW: number;
     private stageH: number;
     private radius = 10;
+    private score = new egret.TextField();
+    
 
     /**
      * 创建游戏场景
@@ -32,6 +34,11 @@ class Main extends egret.DisplayObjectContainer {
         jf.graphics.drawRect(0, 0, this.stageW, this.stageH  * 0.2);
         jf.graphics.endFill();
         this.addChild(jf);
+        this.score.text = "分数：1";
+        this.score.x = 50;
+        this.score.y = 50;
+        // this.score.textAlign = egret.HorizontalAlign.CENTER;
+        this.addChild(this.score);
 
         //白色背景
         var bg = new egret.Shape();
@@ -57,6 +64,9 @@ class Main extends egret.DisplayObjectContainer {
         this.removeChild(this.food);
         this.snake.afterEat(this.food.color);
         this.randomFood();
+        this.removeChild(this.score)
+        this.score.text = "分数：" + this.snake.getlg();
+        this.addChild(this.score);
     }
 
     private randomFood() {

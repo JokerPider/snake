@@ -17,6 +17,10 @@ class Snake extends egret.Sprite {
     private radius;
     //蛇身的全部节点list（保存蛇每个节点的信息和蛇本身做区别）
     private bodyList: egret.Shape[] = [];
+
+    public getlg(){
+        return this.bodyList.length;
+    }
     /**
     * 根据横纵坐标，半径和颜色来初始化蛇头
     *  @param x 横坐标

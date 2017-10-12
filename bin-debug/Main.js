@@ -1,16 +1,22 @@
 var __reflect = (this && this.__reflect) || function (p, c, t) {
     p.__class__ = c, t ? t.push(c) : t = [c], p.__types__ = p.__types__ ? t.concat(p.__types__) : t;
 };
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
         var _this = _super.call(this) || this;
         _this.radius = 10;
+        _this.score = new egret.TextField();
         _this.color = 0x4c8dae;
         _this.during = 40;
         _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.createGameScene, _this);
@@ -29,6 +35,11 @@ var Main = (function (_super) {
         jf.graphics.drawRect(0, 0, this.stageW, this.stageH * 0.2);
         jf.graphics.endFill();
         this.addChild(jf);
+        this.score.text = "分数：1";
+        this.score.x = 50;
+        this.score.y = 50;
+        // this.score.textAlign = egret.HorizontalAlign.CENTER;
+        this.addChild(this.score);
         //白色背景
         var bg = new egret.Shape();
         bg.graphics.beginFill(0xffffff);
@@ -48,6 +59,9 @@ var Main = (function (_super) {
         this.removeChild(this.food);
         this.snake.afterEat(this.food.color);
         this.randomFood();
+        this.removeChild(this.score);
+        this.score.text = "分数：" + this.snake.getlg();
+        this.addChild(this.score);
     };
     Main.prototype.randomFood = function () {
         //显示果实
